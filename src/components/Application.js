@@ -6,18 +6,31 @@ import DayList from "components/DayList";
 
 import Appointment from "./Appointment";
 
-import { getAppointmentsForDay } from "helpers/selectors";
+import { getAppointmentsForDay, getInterview} from "helpers/selectors";
 
 export default function Application(props) {
 
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {}
-  })
+    appointments: {},
+    interviewers: {}
+  });
 
-  let dailyAppointments = getAppointmentsForDay(state, state.day);
-  const setDay = day => setState({ ...state, day });
+  const setDay = day => setState({ ...state, day });  
+
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const schedule = dailyAppointments.map((appointment) => {
+    const interview = getInterview(state, appointment.interview);
+    return (
+      <Appointment
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
+        interview={interview}
+      />
+    );
+  });
 
   useEffect(() => {
     Promise.all([
@@ -53,10 +66,10 @@ export default function Application(props) {
 
       </section>
       <section className="schedule">
-        {dailyAppointments.map((appointment) => (
-          <Appointment   key={appointment.id} {...appointment} />          
-        ))}
-         <Appointment key="last" time="5pm" />
+      <ul>
+          {schedule}
+          <Appointment key="last" time="5pm" />
+        </ul>
       </section>
     </main>
   );
