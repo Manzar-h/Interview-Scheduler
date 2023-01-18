@@ -33,6 +33,7 @@ export default function Application(props) {
       ...state.appointments,
       [id]: appointment
     };
+    
     const url = `/api/appointments/${id}`;
     return axios.put(url, {interview})
       .then(response => {
