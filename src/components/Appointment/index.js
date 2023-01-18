@@ -7,6 +7,7 @@ import Empty from "./Empty";
 import Form from "./Form"
 import Status from './Status';
 import Confirm from "./Confirm";
+import Error from "./Error";
 
 import useVisualMode from "hooks/useVisualMode";
 
@@ -18,31 +19,38 @@ const EDIT = "EDIT";
 const SAVING = "SAVING";
 const CONFIRM = "CONFIRM";
 const DELETING = "DELETING";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
 const { mode, transition, back } = useVisualMode(
 props.interview ? SHOW : EMPTY
 );
 const { time, id, interview, dailyInterviewers, bookInterview, cancelInterview} = props;
 
-const save = (name, interviewer) => {
-  if (!name || !interviewer) {
-    return;
-}
-const interview = {
-student: name,
-interviewer
-};
-transition(SAVING, true);
-props.bookInterview(id, interview)
-.then(() => transition(SHOW));
+function save(name, interviewer) {
+//   if (!name || !interviewer) {
+//     return;
+// }
+  const interview = {
+    student: name,
+    interviewer
+  };
+
+  transition(SAVING);
+
+  props
+    .bookInterview(props.id, interview)
+    .then(() => transition(SHOW))
+    .catch(error => transition(ERROR_SAVE, true));
 }
 
-const cancel = () => {
-transition(DELETING, true);
-props.cancelInterview(props.id).then(() => {
-transition(EMPTY);
-})
-};
+function destroy(event) {
+  transition(DELETING, true);
+  props
+   .cancelInterview(props.id)
+   .then(() => transition(EMPTY))
+   .catch(error => transition(ERROR_DELETE, true));
+ }
 
 return (
 <article className="appointment">
@@ -77,10 +85,22 @@ onCancel={() => back()}
 <Confirm 
        message='Are you sure you would like to delete?'
        onCancel={back}
-       onConfirm={cancel}
+       onConfirm={destroy}
      />
 )}
 {mode === DELETING && <Status message='Deleting'/>}
+{mode === ERROR_SAVE &&
+        <Error
+          message='Could not save appointment.'
+          onClose={() => back()}
+        />
+      }
+      {mode === ERROR_DELETE &&
+        <Error
+          message='Could not cancel appointment.'
+          onClose={() => back()}
+        />
+      }
 </article>
 );
 };
