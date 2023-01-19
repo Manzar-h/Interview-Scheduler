@@ -25,7 +25,8 @@ const Form = (props) => {
       if (interviewer === null) {
         setError("Please select an interviewer");
         return;
-      }  
+      } 
+      setError(""); 
       props.onSave(student, interviewer);
     };
 
