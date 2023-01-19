@@ -39,17 +39,16 @@ export default function useApplicationData() {
       [id]: appointment
     };    
     const url = `/api/appointments/${id}`;
-    return new Promise((resolve, reject) => {
-    axios.put(url, {interview})
-      .then(response => {
+    return axios.put(url, {interview})
+      .then(() => {
         const days = updateSpots(state, appointments, id)
         setState(prev => ({...prev, appointments,  days})
           );
-        resolve(response);
+        
       })
       .catch(err => reject(err));
-  });
-};
+  };
+
 
   const cancelInterview = (id) => {
     const appointment = {
