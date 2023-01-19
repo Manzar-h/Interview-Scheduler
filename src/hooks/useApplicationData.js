@@ -13,7 +13,7 @@ export default function useApplicationData() {
 
   const setDay = day => setState({ ...state, day });
 
-  //Implemented as per GarY's lecture
+  //Implemented as per Gary's lecture.
   const updateSpots = (state, appointments) => {
     const dayObj = state.days.find(d => d.name === state.day);
 
