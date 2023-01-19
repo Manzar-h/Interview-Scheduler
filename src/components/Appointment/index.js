@@ -28,9 +28,9 @@ props.interview ? SHOW : EMPTY
 const { time, id, interview, dailyInterviewers, bookInterview, cancelInterview} = props;
 
 function save(name, interviewer) {
-//   if (!name || !interviewer) {
-//     return;
-// }
+  if (!name || !interviewer) {
+    return;
+}
   const interview = {
     student: name,
     interviewer
