@@ -25,7 +25,7 @@ const ERROR_DELETE = "ERROR_DELETE";
 const { mode, transition, back } = useVisualMode(
 props.interview ? SHOW : EMPTY
 );
-const { time, id, interview, dailyInterviewers, bookInterview, cancelInterview} = props;
+
 
 function save(name, interviewer) {
 //   if (!name || !interviewer) {
