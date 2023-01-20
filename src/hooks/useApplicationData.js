@@ -46,7 +46,7 @@ export default function useApplicationData() {
           );
         
       })
-      .catch(err => reject(err));
+      //.catch(err => reject(err));
   };
 
 
