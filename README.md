@@ -17,7 +17,7 @@ The Interview Scheduler project is a web application that allows users to schedu
 !["Screenshot of Create URL page"](https://github.com/ManzarTelus/Interview-Scheduler/blob/master/docs/Cypress_tests.PNG)
 
 ### Screenshot of All Test Results
-!["Screenshot of Create URL page"](https://github.com/ManzarTelus/Interview-Scheduler/blob/master/docs/Tests_In_Terminal.PNG
+!["Screenshot of Create URL page"](https://github.com/ManzarTelus/Interview-Scheduler/blob/master/docs/Tests_In_Terminal.PNG)
 
 ## Dependencies
 
